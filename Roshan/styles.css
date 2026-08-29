@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Removed justify-content: center to allow natural scrolling */
+    background-color: #e068d0be;
+    color: #f8fafc;
+    font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+    padding: 2rem 1rem;
+    overflow-x: hidden; /* Prevents horizontal scrollbars during side-slide transforms */
+}
+
+/* Title Character Staggered Fade */
+.title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    letter-spacing: -0.025em;
+    text-align: center;
+}
+
+.char {
+    display: inline-block;
+    opacity: 0;
+    will-change: opacity;
+    animation: charFade 0.4s ease-out forwards;
+    animation-delay: calc(var(--i) * 0.04s);
+}
+
+@keyframes charFade {
+    to { opacity: 1; }
+}
+.scroll-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 25vh;
+    color: rgba(248, 250, 252, 0.75);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    animation: indicatorFadeIn 1s ease-out forwards;
+}
+
+.mouse-icon {
+    width: 26px;
+    height: 42px;
+    border: 2px solid rgba(248, 250, 252, 0.4);
+    border-radius: 14px;
+    position: relative;
+}
+
+.mouse-icon .wheel {
+    width: 4px;
+    height: 8px;
+    background-color: #f8fafc;
+    border-radius: 2px;
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scrollWheel 1.6s ease-in-out infinite;
+}
+
+.chevron {
+    color: rgba(248, 250, 252, 0.5);
+    animation: bounceChevron 1.6s ease-in-out infinite;
+}
+
+@keyframes scrollWheel {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 0);
+    }
+    30% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 0;
+        transform: translate(-50%, 14px);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, 14px);
+    }
+}
+
+@keyframes bounceChevron {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(6px);
+    }
+}
+
+@keyframes indicatorFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Container Spacing */
+.welcome-text {
+    display: flex;
+    flex-direction: column;
+    gap: 20rem; 
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 500;
+    padding-bottom: 6rem;
+    padding-top: 60vh;
+}
+.first, .sec, .third, .fourth, .five {
+    opacity: 0;
+    font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+    transition: transform 0.8s cubic-bezier(1, 1, 0.3, 1),
+                opacity 0.8s cubic-bezier(1, 1, 0.3, 1),
+                filter 0.8s cubic-bezier(1, 1, 0.3, 1);
+    will-change: transform, opacity, filter;
+}
+
+.first {
+    transform: translateY(30px) scale(0.95);
+    filter: blur(4px);
+}
+.first.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+}
+
+.sec {
+    transform: translateX(80px);
+}
+.sec.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.third {
+    transform: scale(1.3);
+}
+.third.is-visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.fourth {
+    transform: translateX(-80px);
+    font-weight: 700;
+    color: #ffffff;
+}
+.fourth.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.five {
+    transform: translateY(20px);
+    filter: blur(6px);
+}
+.five.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+}
+
+/* Fallback for reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .first, .sec, .third, .fourth, .five, .char {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+        transition: none !important;
+        animation: none !important;
+    }
+}
