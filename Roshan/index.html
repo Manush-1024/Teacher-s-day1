@@ -1,72 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>For You</title>
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
-        <div class="title" id="animated-title">
-            Teacher's day Celebration 
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bilbo+Swash+Caps&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="title" id="animated-title">
+        Teacher's day Celebration
+    </div>
+    <div class="teacher_image">
+        <img src="Src/IMG-20260830-WA0048.jpg.jpeg" alt="image" height="300px" width="auto">
+    </div>
+
+    <div class="scroll-indicator">
+        <span class="scroll-text">Scroll Down</span>
+        <div class="mouse-icon">
+            <div class="wheel"></div>
+        </div>
+        <div class="chevron">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9l6 6 6-6" />
+            </svg>
+        </div>
+    </div>
+
+    <div class="welcome-text">
+        <div class="first">
+            Lessons taught: Countless!
         </div>
 
-        <div class="scroll-indicator">
-            <span class="scroll-text">Scroll Down</span>
-            <div class="mouse-icon">
-                <div class="wheel"></div>
-            </div>
-            <div class="chevron">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-            </div>
+        <div class="sec">
+            Students guided: Countless!!
         </div>
 
-        <div class="welcome-text">
-            <div class="first">
-                Lessons taught: Countless
-            </div>
-            
-            <div class="sec">
-                Students guided: Countless
-            </div>
-            
-            <div class="third">
-                Memories created: Too many to count
-            </div>
-            
-            <div class="fourth">
-                ONE THING IS MISSING.<br>
-                YOUR PRESENCE.
-            </div>
-
-            <div class="five">
-                This is only the beginning.<br>
-                Your next clue is waiting for you.
-            </div>
+        <div class="third">
+            Memories created: Too many to count!!!
         </div>
-        
-        <script>
-            // Title Character Split
-            const titleEl = document.getElementById('animated-title');
-            const chars = titleEl.innerText.split('');
-            titleEl.innerHTML = chars.map((char, i) => 
-                `<span class="char" style="--i: ${i}">${char === ' ' ? '&nbsp;' : char}</span>`
-            ).join('');
 
-            // Intersection Observer for InView Animations
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                    } else {
-                        entry.target.classList.remove('is-visible');
-                    }
-                });
-            }, {
-                threshold: 0.15 // Adjust threshold slightly for better triggering
+        <div class="fourth">
+            ONE THING IS MISSING.<br>
+            YOUR PRESENCE .
+        </div>
+
+        <div class="five">
+            This is only the beginning.<br>
+            Your next clue is waiting for you!...
+        </div>
+    </div>
+
+    <script>
+        // Title Character Split (Wrapped in words to prevent mid-word wrapping on small screens)
+        const titleEl = document.getElementById('animated-title');
+        const words = titleEl.innerText.trim().split(/\s+/);
+        let charIndex = 0;
+        titleEl.innerHTML = words.map((word) => {
+            const chars = word.split('');
+            const wordHtml = `<span class="word" style="display: inline-block; white-space: nowrap;">` +
+                chars.map((char) => `<span class="char" style="--i: ${charIndex++}">${char}</span>`).join('') +
+                `</span>`;
+            return wordHtml;
+        }).join('&nbsp;');
+
+        // Intersection Observer for InView Animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                } else {
+                    entry.target.classList.remove('is-visible');
+                }
             });
+        }, {
+            threshold: 0.15 // Adjust threshold slightly for better triggering
+        });
 
-            document.querySelectorAll('.first, .sec, .third, .fourth, .five').forEach(el => observer.observe(el));
-        </script>
-    </body>
+        document.querySelectorAll('.first, .sec, .third, .fourth, .five').forEach(el => observer.observe(el));
+    </script>
+</body>
+
 </html>
